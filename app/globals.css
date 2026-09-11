@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Modos de Cor - Light Mode (Branco + Azul Céu) */
+  --background: #f4f9ff;
+  --foreground: #0c1e35;
+
+  /* Paleta de Destaques Azul Céu */
+  --sky-primary: #0ea5e9;
+  --sky-hover: #0284c7;
+  --sky-light: #e0f2fe;
+  --sky-glow: rgba(56, 189, 248, 0.35);
+
+  /* Variáveis do Vidro (Light Glass) */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(186, 230, 253, 0.7);
+  --glass-shadow:
+    0 20px 40px -15px rgba(14, 165, 233, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-sky-primary: var(--sky-primary);
+  --color-sky-hover: var(--sky-hover);
+  --color-sky-light: var(--sky-light);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+/* Utilitários Reutilizáveis do Estilo Glassmorphism */
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    var(--sky-glow) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  filter: blur(60px);
+  pointer-events: none;
 }
