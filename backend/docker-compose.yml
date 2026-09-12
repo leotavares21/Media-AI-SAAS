@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  # Banco de Dados Relacional (Persistência de Jobs, Usuários e Resultados)
+  postgres:
+    image: postgres:16-alpine
+    container_name: mediasense_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: mediasense_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Broker de Mensagens e State Store do Celery + Pub/Sub para SSE
+  redis:
+    image: redis:7-alpine
+    container_name: mediasense_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # Storage de Objetos (MinIO - Compatível com AWS S3)
+  minio:
+    image: minio/minio:latest
+    container_name: mediasense_minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpassword
+    ports:
+      - "9000:9000" # API do S3
+      - "9001:9001" # Painel Web do MinIO
+    volumes:
+      - minio_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:

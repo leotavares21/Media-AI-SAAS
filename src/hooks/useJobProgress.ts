@@ -8,6 +8,8 @@ interface JobProgress {
   stepMessage: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
 export function useJobProgress(jobId: string | null) {
   const [jobData, setJobData] = useState<JobProgress>({
     status: "PENDING",
@@ -20,7 +22,7 @@ export function useJobProgress(jobId: string | null) {
 
     // Conecta ao endpoint de SSE do seu backend Python (FastAPI)
     const eventSource = new EventSource(
-      `http://localhost:8000/api/v1/jobs/${jobId}/stream`,
+      `${API_URL}/api/v1/jobs/${jobId}/stream`,
     );
 
     eventSource.onmessage = (event) => {
