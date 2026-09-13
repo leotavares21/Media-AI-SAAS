@@ -1,30 +1,19 @@
-import json
-import time
-import redis
+import os
 from app.core.celery_app import celery_app
-
-# Cliente Redis para publicar mensagens no canal Pub/Sub
-redis_client = redis.Redis.from_url("redis://localhost:6379/0")
-
-def send_progress(job_id: str, status: str, progress: int, message: str):
-    """Publica o estado atual do processamento no canal Pub/Sub do Redis."""
-    payload = json.dumps({
-        "status": status,
-        "progress": progress,
-        "message": message
-    })
-    redis_client.publish(f"job:{job_id}", payload)
+from app.core.s3 import download_file_from_s3
 
 @celery_app.task(bind=True)
-def process_media_task(self, file_path: str, job_id: str):
-    # Inicio do processamento
-    send_progress(job_id, "PROCESSING", 10, "Iniciando transcrição com Whisper...")
-    time.sleep(3)
-
-    # Etapa intermediária
-    send_progress(job_id, "PROCESSING", 60, "Gerando resumo e tópicos com IA...")
-    time.sleep(3)
-
-    # Conclusão
-    send_progress(job_id, "COMPLETED", 100, "Análise concluída com sucesso!")
-    return {"job_id": job_id, "status": "COMPLETED"}
+def process_media_task(self, s3_key: str, job_id: str):
+    local_path = f"/tmp/{job_id}_{os.path.basename(s3_key)}"
+    
+    # 1. Baixa a mídia do MinIO
+    download_file_from_s3(s3_key, local_path)
+    
+    try:
+        # 2. Executa transcrição / IA usando local_path
+        # whisper_model.transcribe(local_path)
+        pass
+    finally:
+        # 3. Remove o arquivo temporário local do worker
+        if os.path.exists(local_path):
+            os.remove(local_path)

@@ -27,7 +27,7 @@ services:
 
   # Storage de Objetos (MinIO - Compatível com AWS S3)
   minio:
-    image: minio/minio:latest
+    image: quay.io/minio/minio:latest
     container_name: mediasense_minio
     restart: always
     command: server /data --console-address ":9001"
@@ -35,8 +35,8 @@ services:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadminpassword
     ports:
-      - "9000:9000" # API do S3
-      - "9001:9001" # Painel Web do MinIO
+      - "9000:9000"
+      - "9001:9001"
     volumes:
       - minio_data:/data
 
