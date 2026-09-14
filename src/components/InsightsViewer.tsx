@@ -6,29 +6,30 @@ import { Sparkles, MessageSquareText, Smile, Tag } from "lucide-react";
 interface InsightsProps {
   summary: string;
   transcription: string;
-  sentiment: "Positivo" | "Neutro" | "Negativo";
-  topics: string[];
+  sentiment?: "Positivo" | "Neutro" | "Negativo";
+  topics?: string[];
 }
 
 export function InsightsViewer({
   summary,
   transcription,
-  sentiment,
-  topics,
+  sentiment = "Neutro", 
+  topics = [],
 }: InsightsProps) {
   const [activeTab, setActiveTab] = useState<"summary" | "transcript">(
     "summary",
   );
 
-  const sentimentColor = {
-    Positivo: "bg-emerald-600/10 text-emerald-500 border-emerald-600/20",
-    Neutro: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    Negativo: "bg-rose-500/10 text-rose-400 border-rose-500/20",
-  }[sentiment];
+  const sentimentColor =
+    {
+      Positivo: "bg-emerald-600/10 text-emerald-500 border-emerald-600/20",
+      Neutro: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      Negativo: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+    }[sentiment] || "bg-sky-500/10 text-sky-400 border-sky-500/20";
 
   return (
-    <div className="glass-card rounded-xl p-6 text-slate-100 max-w-3xl mx-auto space-y-6">
-      {/* Badges de Destaques / Metadados */}
+    <div className="glass-card rounded-xl p-6 text-slate-100 w-xl max-w-screen space-y-6">
+      {/* Badges */}
       <div className="flex flex-wrap items-center gap-3 pb-4 border-b border-sky-light">
         <div
           className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border ${sentimentColor}`}

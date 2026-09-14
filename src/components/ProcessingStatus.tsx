@@ -14,7 +14,7 @@ export function ProcessingStatus({
   status,
 }: ProcessingStatusProps) {
   return (
-    <div className="glass-card p-6 rounded-xl max-w-xl mx-auto text-sky-glow">
+    <div className="glass-card p-6 rounded-xl text-sky-glow w-xl max-w-screen">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           {status === "PROCESSING" && (

@@ -20,7 +20,7 @@ export function useJobProgress(jobId: string | null) {
   useEffect(() => {
     if (!jobId) return;
 
-    // Conecta ao endpoint de SSE do seu backend Python (FastAPI)
+    // Conecta ao endpoint de SSE do backend Python (FastAPI)
     const eventSource = new EventSource(
       `${API_URL}/api/v1/jobs/${jobId}/stream`,
     );

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.s3 import ensure_bucket_exists
+from app.api.endpoints.media import router as media_router
 
 app = FastAPI()
 
@@ -12,6 +13,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Registra as rotas no app principal
+app.include_router(media_router)
 
 @app.on_event("startup")
 def startup_event():
