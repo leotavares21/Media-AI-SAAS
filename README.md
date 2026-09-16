@@ -1,8 +1,14 @@
+
+
 # MediaSense 🚀
 
 O **MediaSense** é uma plataforma inteligente para upload, transcrição e análise automática de arquivos de áudio e vídeo. O sistema utiliza processamento assíncrono para transcrever arquivos de mídia e extrair *insights* acionáveis (resumos, sentimento geral e tópicos relevantes) através de modelos de Inteligência Artificial via **Groq Cloud API**.
 
 ---
+
+https://github.com/user-attachments/assets/703bba20-f9fe-4b95-a722-34bd315bece7
+
+
 
 ## 🛠️ Tecnologias Utilizadas
 
