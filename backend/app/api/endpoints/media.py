@@ -98,7 +98,7 @@ async def get_job_result(job_id: str, db: Session = Depends(get_db)):
         "result": {
             "transcription": job.transcription,
             "summary": job.summary,
-            "sentiment": "Positivo",  # Ou buscar do campo se adicionou no Model
-            "topics": ["Tecnologia", "Análise de Mídia"]
+            "sentiment": job.sentiment or "Neutro",
+            "topics": job.topics or []
         }
     }

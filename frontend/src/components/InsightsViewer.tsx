@@ -13,7 +13,7 @@ interface InsightsProps {
 export function InsightsViewer({
   summary,
   transcription,
-  sentiment = "Neutro", 
+  sentiment = "Neutro",
   topics = [],
 }: InsightsProps) {
   const [activeTab, setActiveTab] = useState<"summary" | "transcript">(
@@ -59,7 +59,7 @@ export function InsightsViewer({
           className={`pb-2 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${
             activeTab === "summary"
               ? "border-sky-primary text-sky-primary"
-              : "border-transparent text-slate-400 hover:text-sky-hover"
+              : "border-transparent text-slate-400 hover:text-slate-600"
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -70,7 +70,7 @@ export function InsightsViewer({
           className={`pb-2 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${
             activeTab === "transcript"
               ? "border-sky-primary text-sky-primary"
-              : "border-transparent text-slate-400 hover:text-sky-hover"
+              : "border-transparent text-slate-400 hover:text-slate-600"
           }`}
         >
           <MessageSquareText className="w-4 h-4" />

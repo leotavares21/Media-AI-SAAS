@@ -39,7 +39,7 @@ export default function Home() {
   }, [status, jobId]);
 
   return (
-    <main className="flex flex-col w-screen gap-6 justify-center items-center h-screen">
+    <main className="flex flex-col w-screen gap-6 justify-center items-center min-h-screen">
       <UploadZone setJobId={setJobId} jobId={jobId} />
       {/* SE HOUVER JOB: Oculta o upload e exibe o progresso do SSE */}
       {jobId && (
